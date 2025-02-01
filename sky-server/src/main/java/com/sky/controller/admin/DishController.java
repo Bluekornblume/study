@@ -1,0 +1,62 @@
+package com.sky.controller.admin;
+
+import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
+import com.sky.result.PageResult;
+import com.sky.result.Result;
+import com.sky.service.DishService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/admin/dish")
+@Slf4j
+@Api(tags = "料理管理")
+public class DishController {
+    @Autowired
+    private DishService dishService;
+
+    @PostMapping
+    @ApiOperation("料理を増加")
+    public Result creatDish(@RequestBody DishDTO dishDTO) {
+        log.info("新しい料理を増加:", dishDTO);
+        dishService.creatDish(dishDTO);
+        return Result.success();
+    }
+
+    @PostMapping("/stauts/{status}")
+    @ApiOperation("料理の状態変更")
+    public Result startOrStop(@PathVariable("status") Integer status, Long id) {
+        log.info("料理の状態変更:{}, {}", status, id);
+        dishService.startOrStop(status, id);
+        return Result.success();
+    }
+
+    @PutMapping
+    @ApiOperation("料理の情報編集")
+    public Result update(@RequestBody DishDTO dishDTO) {
+        log.info("料理の情報編集:", dishDTO);
+        dishService.update(dishDTO);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("idでサーチ")
+    public Result<Dish> getById(@PathVariable Long id) {
+        log.info("idでサーチ:", id);
+        Dish dish = dishService.getById(id);
+        return Result.success(dish);
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("page search")
+    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO ) {
+        log.info("page:", dishPageQueryDTO);
+        PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
+        return Result.success(pageResult);
+    }
+}
