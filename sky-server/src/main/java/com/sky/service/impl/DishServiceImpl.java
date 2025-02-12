@@ -32,12 +32,6 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(dishDTO, dish);
         dish.setStatus(StatusConstant.ENABLE);
 
-        dish.setCreateTime(LocalDateTime.now());
-        dish.setUpdateTime(LocalDateTime.now());
-
-        dish.setCreateUser(BaseContext.getCurrentId());
-        dish.setUpdateUser(BaseContext.getCurrentId());
-
         dishMapper.creatDish(dish);
     }
 
@@ -52,8 +46,6 @@ public class DishServiceImpl implements DishService {
                 .status(status)
                 .id(id)
                 .build();
-        dish.setUpdateTime(LocalDateTime.now());
-        dish.setUpdateUser(BaseContext.getCurrentId());
         dishMapper.update(dish);
     }
 
@@ -62,8 +54,6 @@ public class DishServiceImpl implements DishService {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
 
-        dish.setUpdateTime(LocalDateTime.now());
-        dish.setUpdateUser(BaseContext.getCurrentId());
         dishMapper.update(dish);
     }
 
