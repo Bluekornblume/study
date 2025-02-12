@@ -7,7 +7,11 @@ import com.sky.result.PageResult;
 
 public interface DishService {
 
-    void creatDish(DishDTO dishDTO);
+    /**
+     * 新しい料理と味付けを増加
+     * @param dishDTO
+     */
+    void saveWithFlavor(DishDTO dishDTO);
 
     void startOrStop(Integer status, Long id);
 

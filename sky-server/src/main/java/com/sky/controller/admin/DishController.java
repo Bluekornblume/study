@@ -22,9 +22,9 @@ public class DishController {
 
     @PostMapping
     @ApiOperation("料理を増加")
-    public Result creatDish(@RequestBody DishDTO dishDTO) {
-        log.info("新しい料理を増加:", dishDTO);
-        dishService.creatDish(dishDTO);
+    public Result save(@RequestBody DishDTO dishDTO) {
+        log.info("新しい料理を増加:{}", dishDTO);
+        dishService.saveWithFlavor(dishDTO);
         return Result.success();
     }
 
@@ -39,7 +39,7 @@ public class DishController {
     @PutMapping
     @ApiOperation("料理の情報編集")
     public Result update(@RequestBody DishDTO dishDTO) {
-        log.info("料理の情報編集:", dishDTO);
+        log.info("料理の情報編集:{}", dishDTO);
         dishService.update(dishDTO);
         return Result.success();
     }
@@ -47,7 +47,7 @@ public class DishController {
     @GetMapping("/{id}")
     @ApiOperation("idでサーチ")
     public Result<Dish> getById(@PathVariable Long id) {
-        log.info("idでサーチ:", id);
+        log.info("idでサーチ:{}", id);
         Dish dish = dishService.getById(id);
         return Result.success(dish);
     }
@@ -55,7 +55,7 @@ public class DishController {
     @GetMapping("/page")
     @ApiOperation("page search")
     public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO ) {
-        log.info("page:", dishPageQueryDTO);
+        log.info("page:{}", dishPageQueryDTO);
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
     }
