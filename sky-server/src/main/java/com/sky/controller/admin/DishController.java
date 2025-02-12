@@ -53,9 +53,9 @@ public class DishController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("page search")
+    @ApiOperation("page query")
     public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO ) {
-        log.info("page:{}", dishPageQueryDTO);
+        log.info("菜品分页:{}", dishPageQueryDTO);
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
     }
